@@ -1,18 +1,18 @@
 const { StatusCodes } = require('http-status-codes');
 
+const { ErrorResponse } = require('../utils/comman');
+
 function validateCreateRequest(req, res, next) {
   if (!req.body.modelNumber) {
+
+    ErrorResponse.message = "Something went to wrong while creating airplane";
+    ErrorResponse.error = "Model number not found"
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({
-        success: false,
-        message: "modelNumber is required",
-        data: {},
-        err: { explanation: "modelNumber is required" }
-      });
+      .json(ErrorResponse);
   }
 
-  // Optional: Add more validations if needed, e.g., for `capacity`
+
 
   next();
 }
